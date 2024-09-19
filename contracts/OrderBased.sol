@@ -29,6 +29,7 @@ contract OrderBasedSwap is ReentrancyGuard {
     error YouCannotPlaceOrder();
     error AmountsMustBeGreaterThanZero();
     error AddressZeroDetected();
+    error OrderAlreadyFulfilled();
 
 
     event OrderPlaced(uint256 orderId, address indexed depositor, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut);
@@ -84,13 +85,13 @@ contract OrderBasedSwap is ReentrancyGuard {
         if (order.fulfilled){
             revert("Order already fulfilled");
         }
-        if(order.depositor == msg.sender){
+        if(order.depositor != msg.sender){
             revert( "Only the depositor can cancel the order");
         }
 
         order.fulfilled = false;
 
-        IERC20(order.depositToken).transfer(order.depositor, order.depositAmount);
+        IERC20(order.tokenIn).transfer(order.depositor, order.amountIn);
 
         emit OrderCancelled(_orderId, msg.sender);
     }
