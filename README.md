@@ -1,7 +1,3 @@
-Here's a README template for your Hardhat project:
-
----
-
 # OrderBasedSwap Contract
 
 This project implements an order-based swap contract using Solidity. The contract allows users to deposit various tokens and specify the tokens they want in return. Other users can fulfill these orders by providing the requested tokens.
@@ -70,7 +66,3 @@ The `OrderBasedSwap` contract allows users to create and fulfill token swap orde
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-Feel free to customize this template to better suit your project's needs! If you have any questions or need further assistance, just let me know.
