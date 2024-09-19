@@ -28,6 +28,7 @@ contract OrderBasedSwap is ReentrancyGuard {
 
     error YouCannotPlaceOrder();
     error AmountsMustBeGreaterThanZero();
+    error AddressZeroDetected();
 
 
     event OrderPlaced(uint256 orderId, address indexed depositor, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut);
@@ -37,6 +38,10 @@ contract OrderBasedSwap is ReentrancyGuard {
     function placeOrder(address _tokenIn, uint256 _amountIn, address _tokenOut, uint256 _amountOut) external nonReentrant {
         if(msg.sender == address(this)){
             revert YouCannotPlaceOrder();
+        }
+
+        if(_tokenIn == address(0)){
+            revert AddressZeroDetected();
         }
 
         if(_amountIn < 0 ){
